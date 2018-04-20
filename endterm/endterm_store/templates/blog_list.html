@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="well">
+        <h1>
+          {% if blogs|length > 1 %}
+            {{blogs|length}} blogs
+          {% elif blogs|length == 1 %}
+            {{blogs|length}} blog
+          {% else %}
+            blogs list empty
+          {% endif %}
+        </h1>
+        
+        <a href="/add">
+            <button class = "btn btn-primary">Add</button>
+        </a>
+
+
+        {% for blog in blogs %}
+            <div class="panel panel-default">
+                <a href="{% url 'blog_delete' blog_id=blog.id %}">
+                    <button class="btn btn-danger">Delete</button>
+                </a>
+
+                <a href="{% url 'blog_update' blog_id=blog.id %}">
+                    <button>Update</button>
+                </a>
+                <div class="panel-body">
+                    <h2 font-color: red>{{blog.title}}</h2>
+                    <h4 font-color: blue>{{blog.body}}</h4>
+                    <h4 >Created at: {{blog.created_at}}</h4>                       
+                </div>
+            </div>
+        {% endfor %}
+    
+    </div>
+{% endblock content %}
